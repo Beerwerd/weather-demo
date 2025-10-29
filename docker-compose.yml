@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  weather:
+    build:
+      context: weather
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - WEATHER_PROTO_PATH=/proto/weather.proto
+    command: npm run start
+    volumes:
+      - ./proto:/proto
+      - ./weather/src:/app/src
+    networks:
+      - weather-network
+
+  assistant:
+    build:
+      context: assistant
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - WEATHER_PROTO_PATH=/proto/weather.proto
+    command: npm run start
+    volumes:
+      - ./proto:/proto
+      - ./assistant/src:/app/src
+    networks:
+      - weather-network
+
+  stream-consumer:
+    build:
+      context: stream-consumer
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - WEATHER_PROTO_PATH=/proto/weather.proto
+    command: sh -c "sleep 10 && npm run start"
+    volumes:
+      - ./proto:/proto
+      - ./stream-consumer/src:/app/src
+    depends_on:
+      - weather
+    networks:
+      - weather-network
+
+  gateway:
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    command: npm run start
+    volumes:
+      - ./gateway/src:/app/src
+    depends_on:
+      - weather
+      - assistant
+    networks:
+      - weather-network
+
+
+
+networks:
+  weather-network:
+    driver: bridge

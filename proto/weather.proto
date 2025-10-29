@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package weather;
+
+message WeatherRequest {
+  repeated string cities = 1;
+}
+
+message WeatherResponse {
+  string alert = 1;
+}
+
+message ForecastRequest {
+  string city = 1;
+  optional string date_from = 2;
+  optional string date_to = 3;
+}
+
+message ForecastDay {
+  string date = 1;
+  string max_temp = 2;
+  string min_temp = 3;
+  string condition = 4;
+}
+
+message ForecastResponse {
+  repeated ForecastDay forecast = 1;
+}
+
+service WeatherService {
+  rpc StreamWeather (WeatherRequest) returns (stream WeatherResponse);
+  rpc GetForecast (ForecastRequest) returns (ForecastResponse);
+}

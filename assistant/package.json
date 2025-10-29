@@ -1,0 +1,24 @@
+{
+  "name": "assistant",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.1.0",
+    "@apollo/subgraph": "2.11.3",
+    "@grpc/grpc-js": "^1.14.0",
+    "dotenv": "^17.2.3",
+    "graphql-tag": "^2.12.6",
+    "openai": "^6.7.0"
+  }
+}

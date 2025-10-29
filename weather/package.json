@@ -1,0 +1,25 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "Weather assistant with gRPC alert service",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@apollo/subgraph": "^2.11.3",
+    "@grpc/grpc-js": "^1.9.0",
+    "@grpc/proto-loader": "^0.7.0",
+    "dotenv": "^17.2.3",
+    "graphql": "^16.8.0",
+    "graphql-tag": "^2.12.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
